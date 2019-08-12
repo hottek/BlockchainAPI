@@ -31,33 +31,35 @@ public class Blockchain {
 
     @Override
     public String toString() {
+        StringBuilder output;
+        output = new StringBuilder();
         for (Block b:this.chain) {
-            System.out.println("=========================");
+            output.append("=========================\n");
             if (b.getIndex() == 0) {
-                System.out.println("INDEX: GENESIS");
+                output.append("INDEX: GENESIS\n");
             } else {
-                System.out.println("INDEX: " + b.getIndex());
+                output.append("INDEX: ").append(b.getIndex()).append("\n");
             }
-            System.out.println("HASH: " + b.getHash());
-            System.out.println("PREVIOUS-HASH: " + b.getPrevious_hash());
-            System.out.println("TIMESTAMP: " + new Timestamp(b.getTime()));
+            output.append("HASH: ").append(b.getHash()).append("\n");
+            output.append("PREVIOUS-HASH: ").append(b.getPrevious_hash()).append("\n");
+            output.append("TIMESTAMP: ").append(new Timestamp(b.getTime())).append("\n");
             try {
                 for (Transaction t : b.getTransactions()) {
-                    System.out.println("-----");
-                    System.out.println("***TRANSACTION***");
-                    System.out.println("SENDER: " + t.getSender());
-                    System.out.println("RECIPIENT: " + t.getRecipient());
-                    System.out.println("AMOUNT: " + t.getAmount());
-                    System.out.println("-----");
+                    output.append("-----\n");
+                    output.append("***TRANSACTION***\n");
+                    output.append("SENDER: ").append(t.getSender()).append("\n");
+                    output.append("RECIPIENT: ").append(t.getRecipient()).append("\n");
+                    output.append("AMOUNT: ").append(t.getAmount()).append("\n");
+                    output.append("-----\n");
                 }
             } catch (NullPointerException e) {
-                System.out.println("-----");
-                System.out.println("***NO TRANSACTIONS***");
-                System.out.println("-----");
+                output.append("-----\n");
+                output.append("***NO TRANSACTIONS***\n");
+                output.append("-----\n");
             }
-            System.out.println("=========================");
+            output.append("=========================\n");
         }
-        return "";
+        return String.valueOf(output);
     }
 
     public void new_transaction(String sender, String recipient, int amount) {

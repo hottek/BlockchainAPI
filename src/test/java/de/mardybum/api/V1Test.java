@@ -4,6 +4,7 @@ import de.mardybum.api.instancehelper.BCInstanceBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.TestProperties;
+import org.junit.Test;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
@@ -11,12 +12,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class V1Test extends JerseyTest {
 
     private static final String PATH = "/api/v1";
     private static final String MINE = "mine";
     private static final String CREATE_TRANSACTION = "create_transaction";
+    private static final String PRINT_CHAIN = "chain";
 
     @Override
     public Application configure() {
@@ -33,6 +36,7 @@ public class V1Test extends JerseyTest {
                 .request()
                 .get();
 
+        // TODO better unit test
         assertEquals(200, response.getStatus());
     }
 
@@ -47,6 +51,17 @@ public class V1Test extends JerseyTest {
                         "    \"amount\": \"20\"\n" +
                         "}", MediaType.APPLICATION_JSON));
 
-        assertEquals(200, response.getStatus());
+        // Pseudo-boolean compare
+        assertEquals("true", response.readEntity(String.class));
+    }
+
+    @Test
+    public void print_Chain() {
+        Response response = target(PATH)
+                .path("/"+PRINT_CHAIN)
+                .request()
+                .get();
+        // TODO implement unit test
+        fail("Not implementet yet");
     }
 }

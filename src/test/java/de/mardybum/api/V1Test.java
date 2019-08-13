@@ -29,7 +29,7 @@ public class V1Test extends JerseyTest {
         return new ResourceConfig(V1.class).register(new BCInstanceBinder());
     }
 
-    @org.junit.Test
+    @Test
     public void mine() {
         Response response = target(PATH)
                 .path("/"+MINE)
@@ -40,7 +40,7 @@ public class V1Test extends JerseyTest {
         assertEquals(200, response.getStatus());
     }
 
-    @org.junit.Test
+    @Test
     public void create_Transaction() {
         Response response = target(PATH)
                 .path("/"+CREATE_TRANSACTION)
@@ -61,7 +61,8 @@ public class V1Test extends JerseyTest {
                 .path("/"+PRINT_CHAIN)
                 .request()
                 .get();
-        // TODO implement unit test
-        fail("Not implementet yet");
+        String responseString = response.readEntity(String.class);
+
+        assertEquals("=\n", responseString.substring(responseString.length() - 2));
     }
 }
